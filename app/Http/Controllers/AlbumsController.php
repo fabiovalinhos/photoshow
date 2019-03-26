@@ -20,6 +20,20 @@ class AlbumsController extends Controller
             'cover_image' => 'image|max:1999'
         ]);
 
-        return $request->file('cover_image')->getClientOriginalName();
+        // get filename with extension
+        $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+
+        // get just a filename
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+
+        // get extension
+        $extension = $request->file('cover_image')->getClientOriginalExtension();
+
+        // create new filename
+        $filenameToStore = $filename.'_' . time() . '.' . $extension;
+
+        $path = $request->file('cover_image')->storeAs('public/album_covers', $filenameToStore);
+
+        return $path;
     }
 }
