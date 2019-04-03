@@ -20,3 +20,4 @@ Route::post('/albums/store', 'AlbumsController@store');
 Route::get('/photos/create/{id}', 'PhotosController@create');
 Route::post('/photos/store', 'PhotosController@store');
 
+
